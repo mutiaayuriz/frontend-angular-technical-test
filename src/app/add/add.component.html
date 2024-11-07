@@ -1,5 +1,5 @@
 <div class="w-full h-full p-4 bg-slate-400 justify-items-center">
-  <div class="bg-slate-100 rounded-md p-4 w-1/4">
+  <div class="bg-slate-100 rounded-md p-4 w-1/4 max-h-full overflow-auto">
     <form
       class="justify-items-center p-2 bg-slate-100"
       [formGroup]="addForm"
@@ -54,8 +54,16 @@
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Birth Date:</span>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker1" formControlName="birthDateFormControl" [max]="maxDate">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <input
+            matInput
+            [matDatepicker]="picker1"
+            formControlName="birthDateFormControl"
+            [max]="maxDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
       </div>
@@ -66,6 +74,7 @@
             id="add-salary"
             matInput
             type="number"
+            [min]="1"
             formControlName="salaryFormControl"
           />
         </mat-form-field>
@@ -77,28 +86,27 @@
           [(ngModel)]="selectedOption"
           formControlName="statusFormControl"
         >
-        @for (option of radioButtonOptions; track option) {
+          @for (option of radioButtonOptions; track option) {
           <mat-radio-button [value]="option">
-            {{ option }}
+            {{ option | titlecase }}
           </mat-radio-button>
-        }
+          }
         </mat-radio-group>
       </div>
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Group:</span>
         <mat-form-field>
-          <mat-select [formControl]="groupCtrl">
+          <mat-select formControlName="groupFormControl">
             <input
-            id="add-group"
-            type="string"
-            matInput
-          />
-            @for (group of groupDummy; track group) {
-              <mat-option [value]="group.id">
-                {{group.name}}
-              </mat-option>
+              id="add-search-group"
+              matInput
+              (keyup)="searchGroup($event)"
+            />
+            @for (group of filteredGroup; track group) {
+            <mat-option [value]="group.id">
+              {{ group.name }}
+            </mat-option>
             }
-
           </mat-select>
         </mat-form-field>
       </div>
@@ -106,7 +114,12 @@
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Description:</span>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker2" />
+          <input
+            matInput
+            [matDatepicker]="picker2"
+            formControlName="descriptionFormControl"
+            [max]="maxDate"
+          />
           <mat-datepicker-toggle
             matSuffix
             [for]="picker2"

@@ -1,28 +1,23 @@
 import {
+  CurrencyPipe,
+  DatePipe,
+  TitleCasePipe
+} from '@angular/common';
+import {
   AfterViewInit,
   Component,
-  Inject,
-  OnDestroy,
   OnInit,
   ViewChild,
-  NgModule,
 } from '@angular/core';
-
-// import { BrowserModule } from "@angular/platform-browser";
+import { Router } from '@angular/router';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { AppService } from '../service/app.service';
 import { Employee } from '../service/interface/list.interface';
 import { MaterialModule } from '../material.module';
 import * as dataEmployee from '../../../db.json';
-import {
-  CurrencyPipe,
-  DatePipe,
-  TitleCasePipe,
-  DecimalPipe,
-} from '@angular/common';
+
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -33,8 +28,7 @@ import {
     MatPaginatorModule,
     CurrencyPipe,
     DatePipe,
-    TitleCasePipe,
-    DecimalPipe,
+    TitleCasePipe
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -86,12 +80,6 @@ export class ListComponent implements OnInit, AfterViewInit {
       if (this.dataSource.paginator) {
         this.dataSource.paginator.firstPage();
       }
-    }
-
-    if (filterValue.length > 1) {
-      // this.local.setItem('keyword', filterValue);
-    } else if (filterValue === '') {
-      // this.local.clear();
     }
   }
 
