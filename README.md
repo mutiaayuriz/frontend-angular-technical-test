@@ -16,6 +16,10 @@ Install node module
 
     npm install
 
+atau 
+
+    npm install --force
+
 
 Running Project
 ============
