@@ -24,6 +24,12 @@ atau
 Running Project
 ============
 
+For cleaning cache before running project you can use:
+
+    npm cache verify
+
+
 For running project you can use:
 
     npm start
+
