@@ -1,0 +1,136 @@
+<div class="w-full h-full p-4 bg-slate-400 justify-items-center">
+  <div class="bg-slate-100 rounded-md p-4 w-1/4">
+    <form
+      class="justify-items-center p-2 bg-slate-100"
+      [formGroup]="addForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <span id="login-title" class="font-bold text-xl">Add Employee</span>
+      <br />
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">Username:</span>
+        <mat-form-field>
+          <input
+            id="add-username"
+            type="string"
+            matInput
+            formControlName="userNameFormControl"
+          />
+        </mat-form-field>
+      </div>
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">First Name:</span>
+        <mat-form-field>
+          <input
+            id="add-firstname"
+            type="string"
+            matInput
+            formControlName="firstNameFormControl"
+          />
+        </mat-form-field>
+      </div>
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">Last Name:</span>
+        <mat-form-field>
+          <input
+            id="add-lastname"
+            matInput
+            type="string"
+            formControlName="lastNameFormControl"
+          />
+        </mat-form-field>
+      </div>
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">Email:</span>
+        <mat-form-field>
+          <input
+            id="add-email"
+            matInput
+            type="email"
+            formControlName="emailFormControl"
+          />
+        </mat-form-field>
+      </div>
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">Birth Date:</span>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker1" formControlName="birthDateFormControl" [max]="maxDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">Basic Salary:</span>
+        <mat-form-field>
+          <input
+            id="add-salary"
+            matInput
+            type="number"
+            formControlName="salaryFormControl"
+          />
+        </mat-form-field>
+      </div>
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">Status:</span>
+        <mat-radio-group
+          aria-label="Select an option"
+          [(ngModel)]="selectedOption"
+          formControlName="statusFormControl"
+        >
+        @for (option of radioButtonOptions; track option) {
+          <mat-radio-button [value]="option">
+            {{ option }}
+          </mat-radio-button>
+        }
+        </mat-radio-group>
+      </div>
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">Group:</span>
+        <mat-form-field>
+          <mat-select [formControl]="groupCtrl">
+            <input
+            id="add-group"
+            type="string"
+            matInput
+          />
+            @for (group of groupDummy; track group) {
+              <mat-option [value]="group.id">
+                {{group.name}}
+              </mat-option>
+            }
+
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="flex w-full py-3">
+        <span class="mr-3 py-4 w-1/4">Description:</span>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker2" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="flex justify-between pt-3">
+        <button
+          type="submit"
+          [disabled]="!addForm.valid"
+          class="bg-blue-500 disabled:bg-slate-300 text-white font-bold py-2 px-4 rounded w-full mr-1"
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          (click)="back()"
+          class="bg-white border border-solid text-black font-bold py-2 px-4 rounded w-full ml-1"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
