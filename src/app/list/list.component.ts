@@ -10,10 +10,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { AppService } from '../service/app.service';
+import { DeleteComponent } from '../delete/delete.component';
 import { Employee } from '../service/interface/list.interface';
 import { MaterialModule } from '../material.module';
 import * as dataEmployee from '../../../db.json';
@@ -34,7 +35,7 @@ import * as dataEmployee from '../../../db.json';
   styleUrl: './list.component.scss',
 })
 export class ListComponent implements OnInit, AfterViewInit {
-  constructor(private appService: AppService, private router: Router) {}
+  constructor(private router: Router, public dialog: MatDialog) {}
   public type: string = 'list';
 
   list: Employee[] = dataEmployee.employee;
@@ -90,7 +91,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   back() {
     this.type = 'list';
-
   }
 
   addEmployee() {
@@ -100,6 +100,21 @@ export class ListComponent implements OnInit, AfterViewInit {
   editEmployee(row: Employee) {
   }
 
-  deleteEmployee(row: Employee) {
+  deleteEmployee(row: Employee): void {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      minWidth: '300px',
+      minHeight: '150px',
+      data: row
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        const filtered = this.list.filter((item) => item.username !== row.username);
+        this.list = filtered;
+        this.dataSource = new MatTableDataSource(filtered);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 }

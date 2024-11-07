@@ -1,0 +1,27 @@
+<h1
+  mat-dialog-title
+  class="flex font-bold text-lg justify-center justify-items-center"
+>
+  Delete Data Employee
+</h1>
+<div mat-dialog-content class="flex text-md justify-center">
+  <p>Are you sure want to delete data?</p>
+</div>
+<div mat-dialog-actions class="flex justify-center mt-2">
+  <button
+    mat-button
+    type="button"
+    (click)="dialogRef.close('save')"
+    class="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+  >
+    Yes, delete
+  </button>
+  <button
+    mat-button
+    type="button"
+    (click)="dialogRef.close('cancel')"
+    class="bg-white border border-solid text-black font-bold py-2 px-4 rounded ml-1"
+  >
+    Cancel
+  </button>
+</div>

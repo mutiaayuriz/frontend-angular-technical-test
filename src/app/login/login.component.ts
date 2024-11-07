@@ -24,7 +24,7 @@ export class LoginComponent {
       Validators.required,
       Validators.email,
     ]),
-    passwordFormControl: new FormControl('', [Validators.required]),
+    passwordFormControl: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
   ngOnInit(): void {}

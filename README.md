@@ -10,7 +10,7 @@ Instalation
 
 Clone repo using ssh (make sure already have ssh on github account)
 
-   git@github.com:mutiaayuriz/frontend-angular-technical-test.git
+    git@github.com:mutiaayuriz/frontend-angular-technical-test.git
 
 Install node module
 
