@@ -1,15 +1,15 @@
 <div class="w-full h-full p-4 bg-slate-400 justify-items-center">
-  <div class="bg-slate-100 rounded-md p-4 w-1/4 max-h-full overflow-auto">
+  <div class="bg-slate-100 rounded-md p-4 w-1/3 max-h-full overflow-auto">
     <form
       class="justify-items-center p-2 bg-slate-100"
       [formGroup]="addForm"
       (ngSubmit)="onSubmit()"
     >
-      <span id="login-title" class="font-bold text-xl">Add Employee</span>
+      <span id="login-title" class="font-bold text-xl">Add Data Employee</span>
       <br />
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Username:</span>
-        <mat-form-field>
+        <mat-form-field class="w-3/4">
           <input
             id="add-username"
             type="string"
@@ -20,7 +20,7 @@
       </div>
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">First Name:</span>
-        <mat-form-field>
+        <mat-form-field class="w-3/4">
           <input
             id="add-firstname"
             type="string"
@@ -31,7 +31,7 @@
       </div>
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Last Name:</span>
-        <mat-form-field>
+        <mat-form-field class="w-3/4">
           <input
             id="add-lastname"
             matInput
@@ -42,7 +42,7 @@
       </div>
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Email:</span>
-        <mat-form-field>
+        <mat-form-field class="w-3/4">
           <input
             id="add-email"
             matInput
@@ -53,7 +53,7 @@
       </div>
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Birth Date:</span>
-        <mat-form-field>
+        <mat-form-field class="w-3/4">
           <input
             matInput
             [matDatepicker]="picker1"
@@ -69,7 +69,7 @@
       </div>
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Basic Salary:</span>
-        <mat-form-field>
+        <mat-form-field class="w-3/4">
           <input
             id="add-salary"
             matInput
@@ -95,7 +95,7 @@
       </div>
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Group:</span>
-        <mat-form-field>
+        <mat-form-field class="w-3/4">
           <mat-select formControlName="groupFormControl">
             <input
               id="add-search-group"
@@ -113,7 +113,7 @@
 
       <div class="flex w-full py-3">
         <span class="mr-3 py-4 w-1/4">Description:</span>
-        <mat-form-field>
+        <mat-form-field class="w-3/4">
           <input
             matInput
             [matDatepicker]="picker2"
