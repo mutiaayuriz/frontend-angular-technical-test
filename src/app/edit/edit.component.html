@@ -1,0 +1,149 @@
+<h1
+  mat-dialog-title
+  class="flex font-bold text-lg justify-center justify-items-center py-3"
+>
+  Edit Data Employee
+</h1>
+<div
+  mat-dialog-content
+  class="flex text-md justify-center overflow-auto max-h-[70vh] p-4 w-full"
+>
+  <form
+    class="justify-items-center p-2"
+    [formGroup]="editForm"
+    (ngSubmit)="submit()"
+  >
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">Username:</span>
+      <mat-form-field>
+        <input
+          id="add-username"
+          type="string"
+          matInput
+          formControlName="username"
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">First Name:</span>
+      <mat-form-field>
+        <input
+          id="add-firstname"
+          type="string"
+          matInput
+          formControlName="firstName"
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">Last Name:</span>
+      <mat-form-field>
+        <input
+          id="add-lastname"
+          matInput
+          type="string"
+          formControlName="lastName"
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">Email:</span>
+      <mat-form-field>
+        <input
+          id="add-email"
+          matInput
+          type="email"
+          formControlName="email"
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">Birth Date:</span>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker1"
+          formControlName="birthDate"
+          [max]="maxDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">Basic Salary:</span>
+      <mat-form-field>
+        <input
+          id="add-salary"
+          matInput
+          type="number"
+          [min]="1"
+          formControlName="basicSalary"
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">Status:</span>
+      <mat-radio-group
+        aria-label="Select an option"
+        [(ngModel)]="selectedOption"
+        formControlName="status"
+      >
+        @for (option of radioButtonOptions; track option) {
+        <mat-radio-button [value]="option">
+          {{ option | titlecase }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">Group:</span>
+      <mat-form-field>
+        <mat-select formControlName="group">
+          <input id="add-search-group" matInput (keyup)="searchGroup($event)" />
+          @for (group of filteredGroup; track group) {
+          <mat-option [value]="group.id">
+            {{ group.name }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="flex w-full py-3">
+      <span class="mr-3 py-4 w-1/4">Description:</span>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker2"
+          formControlName="description"
+          [max]="maxDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions class="flex justify-between py-3">
+      <button
+        type="submit"
+        class="bg-blue-500 disabled:bg-slate-300 text-white font-bold py-2 px-4 rounded w-full mr-1"
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        (click)="dialogRef.close('cancel')"
+        class="bg-white border border-solid text-black font-bold py-2 px-4 rounded w-full ml-1"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,20 +1,12 @@
-import {
-  CurrencyPipe,
-  DatePipe,
-  TitleCasePipe
-} from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { CurrencyPipe, DatePipe, TitleCasePipe } from '@angular/common';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { DeleteComponent } from '../delete/delete.component';
+import { EditComponent } from '../edit/edit.component';
 import { Employee } from '../service/interface/list.interface';
 import { MaterialModule } from '../material.module';
 import * as dataEmployee from '../../../db.json';
@@ -29,7 +21,7 @@ import * as dataEmployee from '../../../db.json';
     MatPaginatorModule,
     CurrencyPipe,
     DatePipe,
-    TitleCasePipe
+    TitleCasePipe,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -61,8 +53,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource(this.list);
   dataSelected: any;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -101,18 +92,53 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   editEmployee(row: Employee) {
+    const dialogRef = this.dialog.open(EditComponent, {
+      width: '400px',
+      maxHeight: '100%',
+      data: row,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== 'cancel') {
+        let dataChanges = result.value;
+        const updatedEmployee = this.list.map((emp) => {
+          if (emp.username === row.username) {
+            return {
+              ...emp,
+              username: dataChanges.username,
+              firstName: dataChanges.firstName,
+              lastName: dataChanges.lastName,
+              basicSalary: dataChanges.basicSalary,
+              email: dataChanges.email,
+              status: dataChanges.status,
+              group: dataChanges.group,
+              birthDate: dataChanges.birthDate,
+              description: dataChanges.description,
+            };
+          } else {
+            return emp;
+          }
+        });
+        this.list = updatedEmployee;
+        this.dataSource = new MatTableDataSource(updatedEmployee);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
   deleteEmployee(row: Employee): void {
     const dialogRef = this.dialog.open(DeleteComponent, {
       minWidth: '300px',
       minHeight: '150px',
-      data: row
+      data: row,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 'save') {
-        const filtered = this.list.filter((item) => item.username !== row.username);
+        const filtered = this.list.filter(
+          (item) => item.username !== row.username
+        );
         this.list = filtered;
         this.dataSource = new MatTableDataSource(filtered);
         this.dataSource.paginator = this.paginator;
