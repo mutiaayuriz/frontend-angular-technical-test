@@ -3,7 +3,7 @@
   <div class="flex justify-between">
     <mat-form-field>
       <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" #input />
+      <input matInput (keyup)="applyFilter($event)" #input [value]="keyword" />
     </mat-form-field>
     <div class="py-3">
       <button
@@ -123,7 +123,6 @@
     class="w-full"
     [pageSizeOptions]="[5, 10, 25, 100]"
     aria-label="Select page of users"
-    [length]="list.length"
   />
 </div>
 } @else {

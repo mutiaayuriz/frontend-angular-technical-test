@@ -36,9 +36,14 @@ import * as dataEmployee from '../../../db.json';
 })
 export class ListComponent implements OnInit, AfterViewInit {
   constructor(private router: Router, public dialog: MatDialog) {}
-  public type: string = 'list';
 
-  list: Employee[] = dataEmployee.employee;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+  @ViewChild(MatSort)
+  sort!: MatSort;
+
+  public type: string = 'list';
+  public keyword: string = '';
   displayedColumns: string[] = [
     'userName',
     'firstName',
@@ -51,13 +56,10 @@ export class ListComponent implements OnInit, AfterViewInit {
     'description',
     'action',
   ];
+
+  list: Employee[] = dataEmployee.employee;
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource(this.list);
   dataSelected: any;
-
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-  @ViewChild(MatSort)
-  sort!: MatSort;
 
   ngOnInit(): void {
   }
@@ -76,6 +78,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.keyword = filterValue;
     if (filterValue.length > 1 || filterValue === '') {
       this.dataSource.filter = filterValue.trim().toLowerCase();
       if (this.dataSource.paginator) {
